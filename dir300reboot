@@ -1,0 +1,31 @@
+#!/bin/bash
+la='145.255.'
+rep=1
+echo $(date)
+#vcgencmd measure_temp
+wget -O - -q icanhazip.com
+if wget -O - -q icanhazip.com |grep "^$la"
+then
+rep=0
+fi
+while [ $rep = 0 ]
+do
+echo "Yes $la"
+(
+sleep 3
+echo admin
+sleep 3
+echo asdrty68
+sleep 3
+echo reboot
+sleep 3
+) | telnet 192.168.0.1
+#wget "http://192.168.0.1/login.php?ACTION_POST=LOGIN&FILECODE=&VERIFICATION_CODE=&LOGIN_USER=admin&LOGIN_PASSWD=asdrty68&login=+%D0%90%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F+&VER_CODE="
+#wget "http://192.168.0.1/sys_cfg_valid.xgi?&exeshell=submit%20REBOOT"
+rep=1
+sleep 2m
+if wget -O - -q icanhazip.com |grep "^$la"
+then
+rep=0
+fi
+done
